@@ -1,0 +1,2 @@
+# vueRequire
+require-context
