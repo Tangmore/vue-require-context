@@ -1,0 +1,732 @@
+// 注意：本文件内的自定义class用于全局，同时其命名格式严格遵循zc-xxx-xxx的方式，例如zc-container-xxx系列
+// 同时覆盖部分element-ui样式
+
+/* 改变主题色变量 */
+$--color-primary: rgba(0, 91, 254, 1); 
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  min-width: 1280px;
+  min-height: 660px;
+}
+
+html {
+  // 对非Mac系统，复写滚动条样式
+  // OY：所有滚动条样式复写时需要注意，带上 html:not(.mac)
+  &:not(.mac) {
+    // color: blueviolet;
+    // 定义滚动条，包括自身
+    &::-webkit-scrollbar,
+    *::-webkit-scrollbar {
+      // width: 0.5rem;
+      width: 10px; // 宽度设置为0,现在变为可滚动,但是滚动条不可见
+      height: 0.5rem;
+      background-color: #eeeeee; // 将滚动条底层设置透明
+      border-radius: 0.625rem;
+    }
+
+    // 定义滑块 内阴影+圆角, 包括自身
+    &::-webkit-scrollbar-thumb,
+    *::-webkit-scrollbar-thumb {
+      border-radius: 0.625rem;
+      background-color: #dddddd;
+    }
+  }
+
+  // 动态修改html根元素font-szie，用于rem
+  @media screen and (max-width: 1920px) {
+    font-size: 16px;
+  }
+
+  @media screen and (max-width: 1600px) {
+    font-size: 15px;
+  }
+
+  @media screen and (max-width: 1366px) {
+    font-size: 13px;
+  }
+
+  @media screen and (max-width: 1280px) {
+    font-size: 12px;
+  }
+}
+
+// 除了#app，除特殊情况理论上一个vue应用是不需要使用id的
+#app {
+  font-family: "MicrosoftYaHei";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
+  font-size: 0.75rem;
+  color: #333333;
+}
+
+// OY: 目前有少量代码是直接在before中使用的字体索引，需要修改
+@font-face {
+  font-family: 'SourceHanSansCN-Bold';
+  src: url('./font/SourceHanSansCN-Bold.eot');
+  src:
+    url('./font/SourceHanSansCN-Bold.eot?#font-spider') format('embedded-opentype'),
+    url('./font/SourceHanSansCN-Bold.woff2') format('woff2'),
+    url('./font/SourceHanSansCN-Bold.woff') format('woff'),
+    url('./font/SourceHanSansCN-Bold.ttf') format('truetype'),
+    url('./font/SourceHanSansCN-Bold.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SourceHanSansCN-Light';
+  src: url('./font/SourceHanSansCN-Light.eot');
+  src:
+    url('./font/SourceHanSansCN-Light.eot?#font-spider') format('embedded-opentype'),
+    url('./font/SourceHanSansCN-Light.woff2') format('woff2'),
+    url('./font/SourceHanSansCN-Light.woff') format('woff'),
+    url('./font/SourceHanSansCN-Light.ttf') format('truetype'),
+    url('./font/SourceHanSansCN-Light.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*********************************************************
+  以下为全局覆盖element-ui的样式
+**********************************************************/
+
+// 提示文字 tip
+.el-tooltip__popper {
+  padding: 0.5rem 0.625rem !important;
+  background: rgba(76, 76, 76, 1) !important;
+  max-width: 240px;
+  line-height: 180%;
+  min-height: 24px;
+}
+
+// 修改datePicker下的图标定位，此操作将左右两个图标重叠了，如果右边的清空图标需要使用
+// 这个样式就不合适了
+.rear-icon-date-picker {
+  position: relative;
+
+  .el-input__prefix {
+    position: absolute;
+    top: 0;
+    left: inherit;
+    color: rgba(0, 91, 254, 1);
+    right: 5px;
+    height: 100%;
+    text-align: center;
+    transition: all 0.3s;
+  }
+}
+
+// 成功message提示
+.el-message {
+  // top: 16.875rem !important; 因提示消息重叠删除top值 用marginTop代替居中
+  margin-top: 16.875rem;
+  border: none !important;
+  min-width: 9.375rem !important;
+  // width: fit-content;
+  // margin: 0 10px;
+  // padding: 0.75rem 1.0625rem !important;
+  padding: 0.75rem 0.625rem;
+  display: flex;
+  justify-content: center;
+  border-radius: 0.375rem !important;
+  color: white !important;
+
+  .el-icon-success {
+    color: white !important;
+    font-size: 1.25rem !important;
+    font-family: "icomoon" !important;
+    font-weight: 700 !important;
+
+    &::before {
+      content: "\e917";
+    }
+  }
+
+  .el-icon-error {
+    color: white !important;
+    font-size: 1.25rem !important;
+    font-family: "icomoon" !important;
+    font-weight: 700 !important;
+    &::before {
+      content: "\e90a";
+    }
+  }
+
+  .el-icon-warning {
+    color: white !important;
+  }
+}
+
+.el-message--error {
+  background: rgba(0, 0, 0, 0.7) !important;
+
+  .el-message__content {
+    color: white !important;
+  }
+}
+
+.el-message--success {
+  background: rgba(0, 0, 0, 0.7) !important;
+
+  .el-message__content {
+    color: white !important;
+  }
+}
+
+.el-message--warning {
+  background: rgba(0, 0, 0, 0.7) !important;
+
+  .el-message__content {
+    color: white !important;
+  }
+}
+
+.el-table {
+  width: 100%;
+  border-radius: 0.25rem;
+
+  border: {
+    color: #dcdee2 !important;
+  }
+  td,
+  th {
+    // 表格的表头和内容行高度
+    padding: 0;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    border-bottom: none;
+    .cell {
+      // padding-left: 24px;
+      // padding-right: 24px;
+    }
+  }
+
+  th.is-leaf {
+    background: rgb(248, 248, 249);
+  }
+
+  // 表头颜色
+  th {
+    color: rgba(102, 102, 102, 1);
+
+    // 表头添加\n换行
+    .cell {
+      white-space: pre-line;
+    }
+  }
+  // 用于需要行合并的表，例如：预览报表和数据报表
+  &.table-padding-small {
+    td,
+    th {
+      // 表格的表头和内容左右间距
+      .cell {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+    }
+    // 让单元格其样式与未hover的情况一致
+    tr:hover > td {
+      background-color: #fff;
+    }
+    tr.el-table__row--striped:hover > td {
+      background-color: #fafafa;
+    }
+    // 跨行的不显示stripe底色
+    tr.el-table__row--striped td:not([rowspan="1"]){
+      background-color: #fff !important;
+    }
+    // OY: 问题：当需要编辑的单元格内没有任何值时，双击会导致一个其他单元格的文本内容出现选中效果，
+    //  所以为了防止双击时，找不到元素，将单元格内的空元素div添加一个最小高度
+    td div.cell div:empty {
+      min-height: 2rem;
+    }
+  }
+  // 行hover展示，仅用于非行合并的表格时
+  &:not(.table-padding-small) tr:hover > td {
+    background-color: #e9efff !important;
+  }
+}
+
+// .el-table--border td:first-child .cell {
+//   padding-left: 1.4375rem;
+// }
+
+// .el-table--border th:first-child .cell {
+//   padding-left: 1.4375rem;
+// }
+
+// 空数据表格除了表头，将表格border隐藏
+.el-table.el-table--border.empty-table {
+  border: none;
+
+  &::after,
+  &::before {
+    content: none;
+  }
+}
+
+//表格有x轴方向滚动条的时候,左侧定位td有下边线,这是用来清除下边线的
+.el-table__fixed::before, .el-table__fixed-right::before{
+  content: none;
+}
+
+// 被禁用的行背景
+.el-table .ban-row td {
+  background: rgba(255, 240, 237, 1);
+}
+
+/* 勾选上checkbox的那行显示紫色 需要在table的row-class-name属性上返回样式choose-row*/
+.el-table .choose-row td {
+  background: rgba(233, 239, 255, 1);
+}
+/* 选择那行显示蓝色 需要在table的row-class-name属性上返回样式select-row*/
+.el-table .select-row td {
+  background: #e6efff;
+}
+
+// ban-row的双行也是显示粉红色
+.el-table--striped .el-table__body tr.el-table__row--striped.ban-row td {
+  background: rgba(255, 240, 237, 1);
+}
+
+/* 当有偶数行显示灰色状态时它勾选了checkbox也修改为淡紫色 */
+.el-table--striped .el-table__body tr.el-table__row--striped.choose-row td {
+  background-color: rgba(233, 239, 255, 1);
+}
+/* 当有偶数行也修改为淡蓝色 */
+.el-table--striped .el-table__body tr.el-table__row--striped.select-row td {
+  background-color: #e6efff;
+}
+
+.el-select .el-input.is-focus .el-input__inner {
+  border: 1px solid rgba(0, 91, 254, 1);
+  box-shadow: 0px 0px 2px 2px #d5e8fc;
+}
+
+// 改变input内边距，placeholder颜色
+.el-input--small .el-input__inner {
+  padding-left: 1.625rem;
+}
+
+.el-input__inner::placeholder {
+  color: #999999;
+}
+
+.el-input__inner::-webkit-input-placeholder {
+  color: #999999;
+}
+
+.el-textarea__inner::placeholder {
+  color: #999999;
+}
+
+.el-textarea__inner::-webkit-textarea-placeholder {
+  color: #999999;
+}
+
+// .el-textarea__inner {
+//   padding-left: 1.625rem;
+// }
+.el-scrollbar__wrap {
+  overflow: auto;
+}
+
+//隐藏表格默认的滚动条
+// .el-table--scrollable-x .el-table__body-wrapper {
+//   overflow: hidden;
+// }
+
+.el-radio__input.is-checked .el-radio__inner {
+  background: #ffffff !important;
+}
+
+.el-radio__inner::after {
+  width: 6px !important;
+  height: 6px !important;
+  background-color: #005bfe !important;
+}
+
+// select禁用背景色
+.el-input.is-disabled .el-input__inner {
+  background: rgba(250, 250, 250, 1);
+  color:#333 !important;
+}
+
+// 输入框行高
+.el-input--suffix .el-input__inner {
+  height: 2.1875rem;
+  padding-left: 1.75rem;
+}
+
+// 输入框后缀图标行高
+.el-input__icon {
+  line-height: 2.1875rem;
+}
+
+// 修改element-ui  table空数据的展示，为自定义的背景图片
+.el-table__empty-block {
+  height: 250px !important;
+}
+.el-table__empty-text {
+  display: block;
+  width: 160px;
+  height: 135px;
+  padding-top: 135px;
+  background: url("./emptyData.png") no-repeat;
+  background-size: 100% 100%;
+  color: #909399;
+  box-sizing: border-box;
+}
+
+// 日期选择控件， icon放在右边
+.el-date-editor.form-date /deep/ {
+  .el-input__prefix {
+    right: 5px;
+    left: auto;
+
+    .el-icon-date {
+      color: #005bfe;
+    }
+  }
+}
+
+.zc-container {
+  // min-height: 1080px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .zc-main-wrapper {
+    width: calc(100% - 15rem);
+    height: 100%;
+    box-sizing: border-box;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    background: #f3f6fd;
+
+    .zc-main {
+      flex: 1;
+      overflow: hidden;
+      background: #ffffff;
+      padding: 1.25rem;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+
+      .content-table {
+        background: rgba(255, 255, 255, 1);
+        border-radius: 0.25rem;
+        // padding: 0 1.25rem 1.25rem 1.25rem;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        .table-wrapper {
+          overflow: hidden;
+          margin-top: 0.6875rem;
+          flex: 1;
+          position: relative;
+
+          .el-pagination {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+      }
+    }
+  }
+}
+
+// 弹出的提示框，是否同意
+.zc-message.zc-dialog-pop {
+  span {
+    font-size: 0.875rem;
+    line-height: 1.875rem;
+
+    &:nth-child(1) {
+      color: #333333;
+    }
+
+    &:nth-child(2) {
+      color: #f02846;
+    }
+  }
+
+  .center {
+    min-width: 19.375rem;
+
+    .content {
+      min-height: 6.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+$borderColor: rgba(0, 91, 254, 1);
+
+// el-input的边框颜色
+.el-input.is-active .el-input__inner,
+.el-input__inner:focus {
+  border-color: $borderColor;
+}
+// 错误验证阴影颜色
+.el-form-item.is-error .el-input__inner:focus {
+  box-shadow: 0px 0px 2px 2px #fff;
+}
+.el-textarea__inner:focus {
+  border-color: $borderColor;
+}
+
+// el-select的边框颜色
+.el-select .el-input.is-focus .el-input__inner {
+  border-color: $borderColor;
+}
+
+// select内容离左侧距离
+.el-select {
+  .el-input--suffix .el-input__inner {
+    padding-left: 0.875rem;
+  }
+}
+
+// input内容离左侧距离
+.el-input {
+  .el-input__inner {
+    padding-left: 0.875rem;
+
+    &:focus {
+      box-shadow: 0px 0px 2px 2px #d5e8fc;
+    }
+  }
+}
+
+.el-range-editor.is-active,
+.el-range-editor.is-active:hover {
+  box-shadow: 0px 0px 2px 2px #d5e8fc;
+}
+
+.el-form-item.is-required {
+  .el-form-item__label {
+    &::before {
+      margin-right: 0.625rem !important;
+    }
+  }
+}
+
+.el-tag {
+  text-align: center;
+  // display: flex;
+  // justify-content: center;
+  position: relative;
+
+  .el-icon-close {
+    position: absolute;
+    right: -0.3625rem !important;
+    top: -0.4375rem !important;
+  }
+}
+
+// el-select弹出下拉框上方的箭头
+.el-select-dropdown.el-popper {
+  max-height: 15rem;
+  min-height: 5.0625rem;
+  margin-top: 4px;
+
+  .el-scrollbar {
+    height: inherit;
+    max-height: 15rem;
+    min-height: 5.0625rem;
+
+    // margin-bottom: 4px;
+  }
+
+  .el-select-dropdown__wrap {
+    height: inherit;
+    max-height: 15rem;
+    min-height: 5.0625rem;
+    margin-bottom: -1px !important;
+  }
+  .popper__arrow {
+    display: none;
+  }
+}
+
+// 必填项前面的*星号改为黑色
+.el-form-item.is-required:not(.is-no-asterisk) > .el-form-item__label:before {
+  color: #333333;
+}
+
+// checkbox颜色
+.el-checkbox__input.is-checked .el-checkbox__inner {
+  background-color: #005bfe;
+  border-color: #005bfe;
+}
+
+// 普通el-input，桩号
+.zc-form-item-mark {
+  height: 2.25rem;
+  line-height: 2.25rem;
+}
+
+// .zc-form-item-double-mark {
+//   // height: 2.25rem;
+//   // line-height: 2.25rem;
+//   height: 35px;
+//   line-height: 35px;
+// }
+
+.el-input--medium {
+  .el-input__inner {
+    height: 2.25rem;
+    line-height: 2.25rem;
+  }
+}
+
+// 弹窗，有标题和搜索框的
+.zc-message.table-dialog {
+  .center {
+    width: 24.0625rem;
+    min-width: 24.0625rem;
+    height: 29.875rem;
+    position: relative;
+    background: #ffffff;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.25rem 1.25rem 0 1.25rem;
+      box-sizing: border-box;
+
+      .zc-search {
+        // margin-top: 0.875rem;
+        // width: calc(100% - 2.5rem);
+        width: 100%;
+      }
+    }
+
+    .buttons {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+    }
+
+    .content-wrapper {
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 1.25rem;
+      overflow-y: auto;
+    }
+  }
+}
+
+.el-menu-item:hover {
+  background: rgba(233, 239, 255, 1);
+}
+
+.el-select-dropdown__item {
+  span {
+    float: left !important;
+  }
+}
+
+.el-select-dropdown__item.selected {
+  color: rgba(0, 91, 254, 1);
+  font-weight: 400;
+  background: rgba(233, 239, 255, 1);
+}
+
+.el-select-dropdown__item.hover {
+  background: rgba(233, 239, 255, 1);
+}
+
+.el-date-editor.form-date {
+  .el-input__prefix .el-icon-date {
+    font-weight: bold;
+  }
+
+  .el-input__suffix {
+    margin-right: 20px !important;
+
+    // .el-icon-circle-close {
+    //   font-family: "iconmoon" !important;
+    //   color: #999999;
+
+    //   &::before {
+    //     content: "\e90a";
+    //   }
+    //   &:hover {
+    //     color: rgba(255, 117, 84, 1) !important;
+    //   }
+    // }
+  }
+}
+
+// 关闭按钮
+.el-icon-circle-close {
+  font-family: "iconmoon" !important;
+  color: #999999;
+
+  &::before {
+    content: "\e90a" !important;
+  }
+  &:hover {
+    color: rgba(255, 117, 84, 1) !important;
+  }
+}
+
+.el-form-item__error {
+  &::before {
+    font-family: "iconmoon";
+    content: "\e91e";
+    margin-right: 0.25rem;
+  }
+}
+
+.el-date-table td.in-range div,
+.el-date-table td.in-range div:hover,
+.el-date-table.is-week-mode .el-date-table__row.current div,
+.el-date-table.is-week-mode .el-date-table__row:hover div {
+  background: rgba(233, 239, 255, 1);
+}
+
+// 回到顶部按钮
+.icon-goto-top {
+  position: fixed;
+  right: 32px;
+  bottom: 20px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  border-radius: 4px;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.35);
+  font-family: "icomoon" !important;
+  font-style: normal;
+  &::before {
+    font-size: 20px;
+    color: #ffffff;
+    content: "\e926";
+  }
+}

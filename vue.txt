@@ -1,0 +1,19 @@
+管理员
+npm install -g @vue/cli   (报错 npm cache clean --force)
+d:
+cd 目录
+vue init webpack vue-require
+
+npm  install vue-router
+
+npm  install vuex
+
+npm install axios
+npm install qs
+
+npm i element-ui -S
+
+npm install vue-i18n --save
+
+npm i sass-loader
+npm i node-sass
